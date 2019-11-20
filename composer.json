@@ -1,0 +1,40 @@
+{
+  "name": "rockschtar/wp-translation-manager",
+  "type": "composer-plugin",
+  "description": "Composer plugin for manage (install/update/delete) WordPress translation for composer based WordPress projects",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stefan Helmer",
+      "email": "rockschtar@gmail.com"
+    }
+  ],
+  "extra": {
+    "class": "Rockschtar\\WordPressTranslationManager\\Plugin"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "8.4.*",
+    "composer/composer": "^1.9"
+  },
+  "require": {
+    "php": ">=7.3",
+    "composer-plugin-api": "^1.1",
+    "ext-json": "*",
+    "ext-zip": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Rockschtar\\WordPressTranslationManager\\": "src",
+      "Rockschtar\\WordPressTranslationManager\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": [
+      "@composer install",
+      "phpunit"
+    ],
+    "tests": [
+      "@composer run test"
+    ]
+  }
+}
