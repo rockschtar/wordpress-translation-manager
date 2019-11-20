@@ -18,8 +18,7 @@ composer require rockschtar/wordpress-translation-manager
 
 ## Credits
 
-- [Freek Van der Herten](https://github.com/freekmurze)
-- [All Contributors](../../contributors)
+- [Stefan Helmer](https://github.com/rockschtar)
 
 ## License
 
