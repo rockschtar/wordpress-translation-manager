@@ -47,7 +47,27 @@ class TranslationManager {
             $package = $wordPressPackage->getPackage();
             $version = $package->getPrettyVersion();
 
-            $httpResponse = $this->doHttpRequest("https://api.wordpress.org/translations/plugins/1.0/?version={$version}&slug={$wordPressPackage->getSlug()}");
+            $wordPressAPIQueryData = [];
+            $wordPressAPIQueryData['version'] = $version;
+            $wordPressAPIQueryData['slug'] = $wordPressPackage->getSlug();
+
+            switch ($wordPressPackage->getType()) {
+                case WordPressPackageType::PLUGIN:
+                    $endpoint = 'plugins';
+                    break;
+                case WordPressPackageType::THEME:
+                    $endpoint = 'themes';
+                    break;
+                case WordPressPackageType::CORE:
+                    $endpoint = 'core';
+                    unset($wordPressAPIQueryData['slug']);
+                    break;
+                default:
+                    return;
+            }
+
+            $wordPressAPIURl = "https://api.wordpress.org/translations/{$endpoint}/1.0/?" . http_build_query($wordPressAPIQueryData);;
+            $httpResponse = $this->doHttpRequest($wordPressAPIURl);
 
             if ($httpResponse->getStatus() !== 200) {
                 throw new \RuntimeException('Unable to update WordPress translations: Could not connect to api.wordpress.org');
@@ -106,6 +126,10 @@ class TranslationManager {
             $slug = str_replace('wpackagist-theme/', '', $package->getName());
             $type = WordPressPackageType::THEME;
             $outputDirectory = $this->joinPaths($wordpressLanguageDirectory, 'themes');
+        } elseif ($package->getType() === 'wordpress-core') {
+            $slug = 'wordpress-core';
+            $type = WordPressPackageType::CORE;
+            $outputDirectory = $wordpressLanguageDirectory;
         } elseif ($package->getType() === 'package' && $package->getName() === 'johnpbloch/wordpress') {
             $slug = 'wordpress-core';
             $type = WordPressPackageType::CORE;
