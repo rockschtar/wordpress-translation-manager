@@ -3,7 +3,6 @@
   "type": "composer-plugin",
   "description": "Composer plugin for manage (install/update/delete) WordPress translation for composer based WordPress projects",
   "license": "MIT",
-  "minimum-stability": "beta",
   "prefer-stable": true,
   "authors": [
     {
