@@ -1,8 +1,9 @@
 {
-  "name": "rockschtar/wp-translation-manager",
+  "name": "rockschtar/wordpress-translation-manager",
   "type": "composer-plugin",
   "description": "Composer plugin for manage (install/update/delete) WordPress translation for composer based WordPress projects",
   "license": "MIT",
+  "prefer-stable": true,
   "authors": [
     {
       "name": "Stefan Helmer",
