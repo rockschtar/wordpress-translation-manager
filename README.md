@@ -6,15 +6,40 @@ WordPress projects
 
 ## Install
 
-You can install this package via composer:
+1. Install this package via composer:
 
 ``` bash
 composer require rockschtar/wordpress-translation-manager
 ```
 
+2. Define languages as
+   [WordPress Locale Code](https://wpastra.com/docs/complete-list-wordpress-locale-codes/)
+   and wp-content directory in the extras object of your `composer.json`
+   file.
+
+Example:
+``` json
+  "extra": {
+    "wordpress-translation-manager": {
+      "languages": [
+        "de_DE",
+        "es_ES"
+      ],
+      "wordpress-content-directory": "web/app"
+    },
+
+  },
+```
+
 ## Usage
 
-- TODO
+Every time you install or update a package via `composer install`,
+`composer require` or `composer update` the plugin automatically updates
+the translations for you specified plugins/version or wordpress core.
+
+If you start with this on an existing composer based wordpress project
+you can run `composer update-wordpress-translations` to force the update
+of the translations.
 
 ## Credits
 
