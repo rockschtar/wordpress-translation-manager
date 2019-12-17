@@ -32,7 +32,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
     public static function getSubscribedEvents(): array {
         return [
             PackageEvents::POST_PACKAGE_UPDATE => 'update',
-            PackageEvents::POST_PACKAGE_INSTALL => 'update',
+            PackageEvents::POST_PACKAGE_INSTALL => 'install',
             PackageEvents::POST_PACKAGE_UNINSTALL => 'remove'
         ];
     }
@@ -56,7 +56,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
     }
 
     public function update(PackageEvent $packageEvent): void {
+        if (!method_exists($packageEvent->getOperation(), 'getTargetPackage')) {
+            return;
+        }
 
+        $this->translationManager->update($packageEvent->getOperation()->getTargetPackage());
+    }
+
+    public function install(PackageEvent $packageEvent): void {
         if (!method_exists($packageEvent->getOperation(), 'getPackage')) {
             return;
         }
