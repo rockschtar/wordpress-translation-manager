@@ -29,6 +29,7 @@
       "Rockschtar\\WordPressTranslationManager\\Tests\\": "tests"
     }
   },
+  "abandoned": "inpsyde/wp-translation-downloader",
   "scripts": {
     "test": [
       "@composer install",
